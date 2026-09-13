@@ -1,0 +1,44 @@
+{
+  "name": "pdf-scanner-pro",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "npm@11.6.2",
+  "main": "expo/AppEntry.js",
+  "engines": {
+    "node": ">=22.13.0 <25"
+  },
+  "scripts": {
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "prebuild": "expo prebuild",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "expo": "^57.0.0",
+    "expo-camera": "~57.0.5",
+    "expo-crypto": "~57.0.2",
+    "expo-dev-client": "~57.0.19",
+    "expo-file-system": "~57.0.6",
+    "expo-secure-store": "~57.0.4",
+    "expo-sqlite": "~57.0.2",
+    "expo-status-bar": "~57.0.1",
+    "expo-system-ui": "~57.0.3",
+    "react": "19.2.3",
+    "react-native": "0.86.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.35.0",
+    "@types/react": "~19.2.0",
+    "eslint": "^9.35.0",
+    "eslint-config-expo": "~57.0.2",
+    "prettier": "^3.6.2",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.42.0",
+    "vitest": "^3.2.4"
+  }
+}

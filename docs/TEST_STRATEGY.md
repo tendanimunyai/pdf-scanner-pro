@@ -11,12 +11,12 @@ No single layer is sufficient evidence of release readiness.
 - Unit: models, state machines, coordinate transforms, filenames, ordering, search
   normalization, quality bands, size estimates, and error mapping.
 - Integration: filesystem/SQLite consistency, job retries, migrations, OCR mapping,
-  PDF placement, Analytics allowlists, consent, and deletion.
+  PDF placement, diagnostics allowlists, opt-in, and deletion.
 - UI: onboarding, permissions, capture, manual crop, quality warnings, OCR review,
   multi-page editing, recovery, export, search, and deletion.
 - Native/device: focus, flash, orientation, backgrounding, process death, low storage,
   memory pressure, thermal load, offline first run, sharing, and biometrics.
-- Store/release: install, upgrade, Data safety consistency, production Analytics,
+- Store/release: install, upgrade, Data safety consistency, no analytics traffic,
   deep links if any, app bundle size, crash/ANR health, and staged rollout.
 
 ## Corpus
@@ -65,7 +65,7 @@ from every supported schema version.
 - No blocker/high privacy, loss, corruption, unsafe-redaction, or permission defect.
 - Required timing and 50-page stress pass on reference devices.
 - Searchable PDFs pass all representative viewers.
-- Analytics payload and consent tests pass on Android and iOS.
+- Local diagnostics payload, opt-in, deletion, and no-network tests pass on Android and iOS.
 - Clean install, upgrade, offline first run, backup behavior, and deletion pass.
 - Known failures have owner, user impact, workaround, target version, and explicit
   release acceptance.

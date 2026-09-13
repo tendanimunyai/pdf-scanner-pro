@@ -177,7 +177,7 @@ should first optimize this segment.
 - Publish and maintain a plain-language data-flow description covering every
   location in which document content can be stored or transferred.
 - Avoid logging document images, recognized text, filenames, or other sensitive
-  content in analytics and crash reports.
+  content in diagnostics or crash reports.
 
 ## 5. Non-functional requirements
 
@@ -384,7 +384,7 @@ privacy, recovery, or workflow completion.
 ## 13. Discovery and Google Play listing
 
 The product name, store metadata, screenshots, localization, launch experiments,
-and analytics requirements are defined in `docs/GOOGLE_PLAY_ASO.md`. Treat that
+and local measurement requirements are defined in `docs/GOOGLE_PLAY_ASO.md`. Treat that
 document as the source of truth for Google Play discovery work and update it when
 the product positioning, supported languages, or measured store performance
 changes.
@@ -396,5 +396,6 @@ changes.
   document scanning, OCR, searchable PDFs, receipts, invoices, and offline use.
 - Never claim functionality, language support, privacy behavior, rankings, or
   performance that the released build and validation evidence do not support.
-- Instrument the acquisition-to-success funnel using privacy-safe Google
-  Analytics events, excluding all document content and sensitive metadata.
+- Measure the acquisition-to-success funnel locally using privacy-safe events,
+  excluding all document content and sensitive metadata. Never transmit these
+  events automatically; diagnostic export is an explicit user action.

@@ -1,0 +1,15 @@
+node_modules/
+.expo/
+dist/
+coverage/
+android/
+ios/
+google-services.json
+GoogleService-Info.plist
+*.keystore
+*.jks
+.env
+.env.*
+!.env.example
+npm-debug.log*
+.DS_Store

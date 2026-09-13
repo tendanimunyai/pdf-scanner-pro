@@ -10,7 +10,7 @@ remain conditional on the pass criteria in `TECHNICAL_SPIKES.md`.
 - Use React Native, TypeScript, and the current supported Expo SDK.
 - Use Expo development builds and Continuous Native Generation/config plugins.
   Expo Go is not a supported development or test environment because the product
-  requires custom native camera, imaging, OCR, PDF, encryption, and Analytics
+  requires custom native camera, imaging, OCR, PDF, and encryption
   capabilities.
 - Keep `android/` and `ios/` reproducible from configuration where practical.
   Native edits that cannot be expressed through a local Expo module or config
@@ -27,8 +27,8 @@ remain conditional on the pass criteria in `TECHNICAL_SPIKES.md`.
   cancellation, memory use, licensing, and cross-viewer compatibility.
 - Store files in app-private storage and metadata/search state in SQLite. The
   encryption approach must pass the encryption spike before schema stabilization.
-- Use Firebase Analytics through an internal typed analytics adapter. Analytics
-  must never be a dependency of scanner domain logic.
+- Keep operational measurements local through an internal typed adapter. Remote
+  analytics must never be a dependency of scanner domain logic.
 
 Official technical references:
 
@@ -37,7 +37,6 @@ Official technical references:
 - [Expo Camera](https://docs.expo.dev/versions/latest/sdk/camera/)
 - [ML Kit Text Recognition v2](https://developers.google.com/ml-kit/vision/text-recognition/v2/android)
 - [Apple Vision](https://developer.apple.com/documentation/vision)
-- [Firebase Analytics collection controls](https://firebase.google.com/docs/analytics/android/configure-data-collection)
 
 ## Component boundaries
 
@@ -48,7 +47,7 @@ Application use cases and persisted jobs
         |
 Scanner domain models and coordinate transforms
         |
-Camera | Imaging | OCR | PDF | Storage | Analytics adapters
+Camera | Imaging | OCR | PDF | Storage | Local diagnostics adapters
         |
 iOS and Android native implementations
 ```
@@ -61,13 +60,13 @@ src/
   features/        capture, review, OCR review, library, export
   domain/          document/page models, jobs, transforms, validation
   services/        provider-independent interfaces and orchestration
-  infrastructure/  SQLite, filesystem, analytics and adapter bindings
+  infrastructure/  SQLite, filesystem, diagnostics and adapter bindings
   ui/              shared components, theme and accessibility helpers
 modules/            local Expo native modules and config plugins
 ```
 
 Screens may invoke application use cases, but must not directly coordinate native
-OCR, files, SQL, PDF generation, or Analytics SDK calls.
+OCR, files, SQL, PDF generation, or diagnostics persistence directly.
 
 ## Coordinate model
 
@@ -106,7 +105,7 @@ and array indexes are never identity.
 Use typed, allowlisted codes such as permission denied, camera unavailable, blur,
 model unavailable, processing failed, storage full, export cancelled, and invalid
 input. Raw native errors stay in local redacted diagnostic logs and never enter
-Analytics or user-facing copy.
+diagnostics or user-facing copy.
 
 ## Open decisions
 

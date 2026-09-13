@@ -61,14 +61,14 @@ devices.
 Pass: no out-of-memory termination or page duplication/loss; UI remains responsive;
 peak memory, storage, total time, thermal behavior, and battery impact are recorded.
 
-## S7 — Analytics and consent
+## S7 — local diagnostics and privacy
 
-Configure separate development Analytics, default-disabled collection where needed,
-consent transitions, withdrawal, typed event allowlisting, and debug verification.
+Configure default-disabled local diagnostics, opt-in transitions, withdrawal,
+typed event allowlisting, retention, deletion, preview, and explicit export.
 
-Pass: events appear only after eligible enablement; withdrawal stops collection;
-payload inspection shows no prohibited fields; core workflow remains unchanged
-when Analytics is unavailable.
+Pass: events are stored only after explicit enablement; withdrawal stops collection;
+deletion clears all records; payload inspection shows no prohibited fields; and
+network inspection shows no automatic transmission.
 
 ## Decision record
 

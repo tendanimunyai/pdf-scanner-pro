@@ -8,17 +8,17 @@ generation do not require an account or network connection.
 
 ## Data inventory
 
-| Data | Location | Purpose | Lifetime |
-| --- | --- | --- | --- |
-| Source page image | App-private files | Recovery and reversible editing | Until document deletion |
-| Processed page | App-private files | Preview, OCR, PDF | Rebuildable; until deletion |
-| Thumbnail | App-private cache/files | Library UI | Rebuildable; until deletion |
-| OCR text and boxes | Encrypted local database | Search, review, PDF text | Until page deletion |
-| Extracted fields | Encrypted local database | Review and naming | Until document deletion |
-| Exported PDF | App-private files or user destination | Viewing and sharing | User controlled |
-| Temporary files | App-private temporary area | Atomic processing | Job end plus cleanup |
-| Analytics events | Google Analytics after eligible consent | Product operations | Configured minimum retention |
-| Redacted diagnostics | Local rotating log | Support and reliability | Short documented period |
+| Data                 | Location                                           | Purpose                         | Lifetime                        |
+| -------------------- | -------------------------------------------------- | ------------------------------- | ------------------------------- |
+| Source page image    | App-private files                                  | Recovery and reversible editing | Until document deletion         |
+| Processed page       | App-private files                                  | Preview, OCR, PDF               | Rebuildable; until deletion     |
+| Thumbnail            | App-private cache/files                            | Library UI                      | Rebuildable; until deletion     |
+| OCR text and boxes   | Encrypted local database                           | Search, review, PDF text        | Until page deletion             |
+| Extracted fields     | Encrypted local database                           | Review and naming               | Until document deletion         |
+| Exported PDF         | App-private files or user destination              | Viewing and sharing             | User controlled                 |
+| Temporary files      | App-private temporary area                         | Atomic processing               | Job end plus cleanup            |
+| Operational events   | Encrypted local database after explicit enablement | Product diagnostics             | User-controlled short retention |
+| Redacted diagnostics | Local rotating log                                 | Support and reliability         | Short documented period         |
 
 Files explicitly saved outside app-private storage are controlled by the selected
 destination and may outlive deletion inside the app. Explain this before permanent
@@ -38,27 +38,26 @@ Camera/photo picker
   -> explicit system save/share action
 ```
 
-Only allowlisted operational event codes branch to Analytics. No document-derived
-content follows that branch.
+Allowlisted operational event codes remain in the encrypted local database. No
+document-derived content enters that store.
 
 ## Encryption and keys
 
 - Generate encryption keys on device and protect them with platform keystore or
   keychain facilities.
-- Never sync raw keys through Analytics, logs, source control, or ordinary app
+- Never sync raw keys through diagnostics, logs, source control, or ordinary app
   preferences.
 - Define behavior for device migration, OS backup, biometric enrollment changes,
   lost keys, reinstall, and app-data clearing before enabling encryption by default.
 - Biometric authentication unlocks key use; biometric material never enters the app.
 
-## Consent and Analytics
+## Local diagnostics
 
-- Core functionality works when Analytics is disabled.
-- Resolve the applicable consent state before enabling collection where required.
-- Disable advertising identifiers and ad personalization for product Analytics.
-- Send only the allowlisted events and parameters in `GOOGLE_PLAY_ASO.md`.
-- Provide withdrawal and reset behavior and keep the privacy policy, consent UI,
-  SDK settings, and Play Data safety declaration consistent.
+- Core functionality works when diagnostics are disabled.
+- Diagnostics are disabled by default and require an explicit settings choice.
+- Store only the allowlisted events and parameters in `GOOGLE_PLAY_ASO.md`.
+- Provide clear, delete, preview, and export controls. Export requires explicit
+  user action through the system share sheet or file picker.
 
 ## Export boundary
 
@@ -86,7 +85,7 @@ explicit confirmation.
 
 - Another app or media scanner accesses app-private captures.
 - Temporary files remain after cancellation or crash.
-- OCR or filenames leak through logs, Analytics, notifications, or backups.
+- OCR or filenames leak through logs, diagnostics, notifications, or backups.
 - A malformed import causes resource exhaustion or unsafe native parsing.
 - Deletion leaves thumbnails, indexes, exports, or orphaned files.
 - Screenshots or app-switcher previews reveal documents; provide sensitive-screen

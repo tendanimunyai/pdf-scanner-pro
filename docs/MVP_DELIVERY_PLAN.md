@@ -10,7 +10,7 @@ and a physical iPhone.
 ## Phase 0 — technical proof
 
 Deliver disposable or isolated spikes for camera frames, OpenCV, OCR, searchable
-PDFs, storage/encryption, 50-page memory, and Analytics consent.
+PDFs, storage/encryption, 50-page memory, and local diagnostics privacy.
 
 Exit criteria:
 
@@ -23,14 +23,13 @@ Exit criteria:
 
 - Scaffold the Expo development-build project and native targets.
 - Add navigation, theme, error boundaries, typed service interfaces, SQLite schema,
-  file layout, persisted job model, and Analytics adapter.
-- Configure development Firebase Analytics with collection disabled until consent
-  resolution.
+  file layout, persisted job model, and local diagnostics adapter.
+- Configure local diagnostics disabled by default with allowlisted event payloads.
 - Establish CI for formatting, linting, type checking, unit tests, secrets, and
   dependency review.
 
 Exit criteria: clean install and deterministic build on Android and iOS; tests and
-development Analytics verification pass; no production credentials exist locally.
+local diagnostics and no-analytics-network verification pass; no production credentials exist locally.
 
 ## Phase 2 — one-page scanner
 
@@ -75,7 +74,7 @@ authoritative.
 ## Phase 6 — beta and launch
 
 - Accessibility, localization, store assets, privacy policy, Data safety form,
-  Analytics validation, dependency/license record, and incident/release runbook.
+  local diagnostics validation, dependency/license record, and incident/release runbook.
 - Internal, closed, then staged production release.
 
 Exit criteria: acceptance suite passes; crash/ANR thresholds are met; rollback is

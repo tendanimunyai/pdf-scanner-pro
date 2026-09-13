@@ -18,4 +18,4 @@ requirements, and acceptance criteria.
 - [Dependency and license review](docs/DEPENDENCY_AND_LICENSE_REVIEW.md)
 - [UX flows](docs/UX_FLOWS.md)
 - [Release and rollback](docs/RELEASE_AND_ROLLBACK.md)
-- [Google Play discovery and analytics](docs/GOOGLE_PLAY_ASO.md)
+- [Google Play discovery and local measurement](docs/GOOGLE_PLAY_ASO.md)

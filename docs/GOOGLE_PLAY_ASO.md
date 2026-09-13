@@ -1,9 +1,9 @@
-# Google Play discovery and analytics
+# Google Play discovery and local measurement
 
 ## Purpose
 
 This document defines the product name, Google Play store listing, discovery
-strategy, creative assets, localization, experimentation, and privacy-safe
+strategy, creative assets, localization, experimentation, and privacy-safe local
 measurement plan for PDF Scanner Pro.
 
 Google Play currently limits app names to 30 characters, short descriptions to
@@ -151,25 +151,26 @@ Create a short demonstration that reaches a searchable PDF within 20 seconds:
 The video must show actual behavior from a release-equivalent build and must not
 use ranking, exaggerated performance, or unsupported privacy claims.
 
-## Google Analytics measurement plan
+## Local measurement plan
 
-Google Analytics must be configured for Android and iOS from the first runnable
-application scaffold. Use a typed, provider-independent analytics service so the
-application can enforce consent and field allowlists centrally.
+Do not integrate Google Analytics, Firebase, or another remote analytics SDK.
+Use a typed local diagnostics service so the application can enforce opt-in,
+retention, deletion, and field allowlists centrally. Events never leave the device
+unless the user previews and explicitly exports a diagnostic report.
 
 ### Required funnel events
 
-| Event | Trigger | Allowed parameters |
-| --- | --- | --- |
-| `first_open` | First eligible launch after consent resolution | app version, platform, locale |
-| `camera_permission_result` | Permission prompt resolves | granted/denied/restricted, platform |
-| `scan_started` | User opens a new capture session | entry point, platform |
-| `page_capture_completed` | A page is retained | capture mode, quality band, duration band |
-| `page_quality_result` | Quality analysis completes | quality band, allowlisted reason codes |
-| `ocr_completed` | Page OCR finishes | success/failure, language code, duration band, confidence band |
-| `export_started` | User confirms export | format, quality option, page-count band |
-| `export_completed` | Export finishes | success/failure/cancelled, duration band, allowlisted failure code |
-| `first_successful_export` | Installation completes its first export | format, page-count band, days-since-install band |
+| Event                      | Trigger                                        | Allowed parameters                                                 |
+| -------------------------- | ---------------------------------------------- | ------------------------------------------------------------------ |
+| `first_open`               | First eligible launch after consent resolution | app version, platform, locale                                      |
+| `camera_permission_result` | Permission prompt resolves                     | granted/denied/restricted, platform                                |
+| `scan_started`             | User opens a new capture session               | entry point, platform                                              |
+| `page_capture_completed`   | A page is retained                             | capture mode, quality band, duration band                          |
+| `page_quality_result`      | Quality analysis completes                     | quality band, allowlisted reason codes                             |
+| `ocr_completed`            | Page OCR finishes                              | success/failure, language code, duration band, confidence band     |
+| `export_started`           | User confirms export                           | format, quality option, page-count band                            |
+| `export_completed`         | Export finishes                                | success/failure/cancelled, duration band, allowlisted failure code |
+| `first_successful_export`  | Installation completes its first export        | format, page-count band, days-since-install band                   |
 
 Never attach document text, extracted values, filenames, document titles, paths,
 images, PDFs, contact information, exact storage sizes, or raw exception messages
@@ -189,21 +190,19 @@ to these events.
 - Day 1, Day 7, and Day 30 return rates.
 - Uninstall rate where aggregate Play Console data is available.
 
-Analytics measures product behavior; the local benchmark suite remains the source
+Local measurement describes product behavior; the benchmark suite remains the source
 of truth for image quality, OCR accuracy, PDF alignment, and data-deletion claims.
 
 ### Privacy and governance
 
-- Use separate development and production Analytics configuration and streams.
-- Confirm debug events in development before considering instrumentation complete.
-- Do not ship debug analytics configuration in production.
-- Obtain and persist consent where required; collection must respect withdrawal.
-- The core product must work fully when analytics collection is disabled.
-- Configure retention to the shortest period justified by the metric purpose.
-- Restrict access to named product and engineering roles and review it regularly.
-- Keep the event catalog, privacy policy, consent UI, Play Data safety form, and
-  observed SDK traffic consistent.
-- Review third-party SDK additions for transitive data collection before release.
+- Keep diagnostics disabled until explicitly enabled in privacy settings.
+- The core product must work fully when diagnostics are disabled.
+- Respect withdrawal immediately and provide complete local deletion.
+- Configure the shortest useful local retention period.
+- Require preview and an explicit system save/share action for diagnostic export.
+- Keep the event catalog, privacy policy, settings UI, Play Data safety form, and
+  observed network traffic consistent.
+- Review every SDK addition for transitive data collection before release.
 
 ## Store optimization process
 

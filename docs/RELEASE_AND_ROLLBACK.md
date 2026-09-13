@@ -2,15 +2,15 @@
 
 ## Environments
 
-Use separate development and production Firebase projects, Analytics data streams,
-application registrations, configuration files, and access roles. Add staging only
-when it has a defined validation purpose and owner.
+Use separate development and production signing credentials, application
+registrations, and access roles. The app has no Firebase or remote analytics
+configuration. Add staging only when it has a defined validation purpose and owner.
 
 Record before the first external build:
 
 - Android application ID and signing owner;
 - iOS bundle ID, team, certificates/profiles, and signing owner;
-- Firebase project IDs and Analytics streams;
+- confirmation that no analytics project IDs, SDKs, or streams are present;
 - store accounts, roles, support contacts, and privacy-policy URL;
 - minimum/target SDK and supported OS versions; and
 - secure recovery procedure for signing access.
@@ -21,8 +21,8 @@ Record before the first external build:
 2. Build from a clean, committed tree using pinned dependencies.
 3. Run automated, corpus, real-device, privacy, permission, upgrade, and deletion
    gates from `TEST_STRATEGY.md`.
-4. Verify production Analytics configuration, consent, payload allowlists, Data
-   safety declarations, dependency notices, and absence of debug collection.
+4. Verify local diagnostics opt-in, payload allowlists, deletion, Data safety
+   declarations, dependency notices, and no automatic diagnostics transmission.
 5. Publish to internal testing, then closed testing.
 6. Promote the same tested artifact through a staged production rollout.
 7. Monitor crash/ANR health, camera failures, scan/export completion, reviews, and

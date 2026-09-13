@@ -17,9 +17,8 @@ Welcome -> Start scan -> Camera education -> Permission
   denied  -> Explanation -> Import photo/file or Open Settings
 ```
 
-Do not require an account, rating, subscription, or Analytics consent to complete
-the core workflow. Resolve Analytics consent in a context that explains the choice
-without blocking capture.
+Do not require an account, rating, subscription, or diagnostics opt-in to complete
+the core workflow. Diagnostics remain disabled until explicitly enabled in settings.
 
 ## Capture states
 
@@ -66,7 +65,7 @@ shared or externally saved copies cannot be deleted by the app.
 
 ## Privacy and app lock
 
-Privacy settings show local-only state, Analytics consent, retention behavior,
+Privacy settings show local-only state, diagnostics choice, retention behavior,
 diagnostics, and permanent deletion. App lock setup explains key-loss/recovery
 behavior before activation. Hide sensitive previews in the app switcher where the
 approved platform implementation permits it.
