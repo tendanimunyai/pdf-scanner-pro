@@ -1,0 +1,13 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["PDFScannerProOCRModule", "PDFScannerProImagingModule"],
+    "podspecPath": "ios/PDFScannerNative.podspec"
+  },
+  "android": {
+    "modules": [
+      "com.pdfscannerpro.nativebridge.PDFScannerProOCRModule",
+      "com.pdfscannerpro.nativebridge.PDFScannerProImagingModule"
+    ]
+  }
+}

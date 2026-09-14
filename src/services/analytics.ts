@@ -49,6 +49,7 @@ const fields: { [K in keyof AnalyticsEvents]: readonly (keyof AnalyticsEvents[K]
 export interface AnalyticsProvider {
   setCollectionEnabled(enabled: boolean): Promise<void> | void;
   logEvent(name: string, parameters: Record<string, string>): Promise<void> | void;
+  clear?: () => Promise<void> | void;
 }
 
 export class Analytics {
@@ -58,6 +59,7 @@ export class Analytics {
   async setConsent(consent: Exclude<ConsentState, 'unresolved'>): Promise<void> {
     this.consent = consent;
     await this.provider.setCollectionEnabled(consent === 'granted');
+    if (consent === 'denied') await this.provider.clear?.();
   }
 
   async track<K extends keyof AnalyticsEvents>(

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { reorderPages } from '../src/domain/documents';
-import { sanitizeFilename } from '../src/domain/filenames';
+import { sanitizeFilename, suggestFilename } from '../src/domain/filenames';
 import { normalizeSearchText } from '../src/domain/search';
 import { createJob, transitionJob } from '../src/domain/jobs';
 
@@ -35,6 +35,12 @@ describe('safe local text utilities', () => {
   it('sanitizes platform-reserved filenames while preserving a useful title', () => {
     expect(sanitizeFilename('  Invoice: 42 / ACME.  ')).toBe('Invoice 42 - ACME');
     expect(sanitizeFilename('CON')).toBe('CON document');
+  });
+
+  it('uses only confirmed fields for editable filename suggestions', () => {
+    expect(suggestFilename('Invoice', { supplier: 'Acme / Co', documentNumber: 'A-42' })).toBe(
+      'Acme - Co - A-42',
+    );
   });
 
   it('normalizes search without replacing original OCR text', () => {

@@ -12,11 +12,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     bundleIdentifier: 'com.pdfscannerpro.app',
     infoPlist: {
       NSCameraUsageDescription: 'Capture paper documents when you start a scan.',
+      NSPhotoLibraryUsageDescription: 'Choose document pages when you import a scan.',
     },
   },
   android: {
     package: 'com.pdfscannerpro.app',
-    permissions: [],
+    permissions: ['android.permission.CAMERA'],
+    blockedPermissions: ['android.permission.RECORD_AUDIO'],
   },
   plugins: [
     'expo-dev-client',

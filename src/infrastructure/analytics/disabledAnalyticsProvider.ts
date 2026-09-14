@@ -4,4 +4,5 @@ import type { AnalyticsProvider } from '../../services/analytics';
 export const disabledAnalyticsProvider: AnalyticsProvider = {
   setCollectionEnabled: () => undefined,
   logEvent: () => undefined,
+  clear: () => undefined,
 };

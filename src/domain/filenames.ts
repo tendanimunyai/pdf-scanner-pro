@@ -14,3 +14,29 @@ export function sanitizeFilename(title: string, fallback = 'Untitled document'):
   const usable = sanitized || fallback;
   return WINDOWS_RESERVED.test(usable) ? `${usable} document` : usable;
 }
+
+export type ConfirmedFilenameFields = Readonly<{
+  supplier?: string;
+  documentNumber?: string;
+  date?: string;
+}>;
+
+export type FilenamePattern = readonly ('supplier' | 'documentNumber' | 'date' | 'title')[];
+
+/** Suggests a filename only from fields explicitly confirmed by the user. */
+export function suggestFilename(
+  title: string,
+  fields: ConfirmedFilenameFields,
+  pattern: FilenamePattern = ['supplier', 'documentNumber', 'date'],
+): string {
+  const values: Record<string, string | undefined> = {
+    supplier: fields.supplier,
+    documentNumber: fields.documentNumber,
+    date: fields.date,
+    title,
+  };
+  const parts = pattern
+    .map((key) => values[key]?.trim())
+    .filter((value): value is string => Boolean(value));
+  return sanitizeFilename(parts.join(' - ') || title);
+}

@@ -39,6 +39,9 @@ npm run lint
 npm run format:check
 npx expo config --type public
 npx expo install --check
+npm run verify:config
+npm run build:bundle
+npm run build:android:debug
 ```
 
 ## Configuration rules
@@ -55,3 +58,11 @@ exit. If generation fails, preserve the app-private data model, revert generated
 native directories, correct the config plugin or pinned dependency, and regenerate.
 Camera, OCR, PDF, corpus, and native clean-build commands will be added only when
 their approved dependencies land.
+
+## Build profile workflow
+
+The repository includes `eas.json` profiles following a development/preview/
+production pattern. Use `development` for a development client, `preview` for an
+internally distributed APK, and `production` only after native OCR/PDF dependencies
+and device gates are approved. No credentials or service configuration are stored
+in these profiles.

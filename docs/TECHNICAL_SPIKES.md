@@ -74,3 +74,15 @@ network inspection shows no automatic transmission.
 
 Create one entry per spike containing date, owner, status, evidence path, result,
 selected option, rejected alternatives, risks, and revisit trigger.
+
+## Current repository evidence — 2026-09-14
+
+| Spike                         | Status                          | Evidence                                                            | Decision                                                                                       |
+| ----------------------------- | ------------------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| S1 camera and frame access    | Partial                         | Expo Camera capture path; TypeScript and Expo prebuild checks pass  | Manual capture is retained; physical lifecycle/frame and orientation tests remain required.    |
+| S2 detection and enhancement  | Contract only                   | `src/services/scannerServices.ts`, quality policy tests             | Native imaging module is still required before advertising automatic correction.               |
+| S3 on-device OCR              | Contract only                   | `src/infrastructure/ocr/nativeOcrService.ts`, OCR model tests       | Vision/ML Kit native implementations and offline corpus evidence remain required.              |
+| S4 searchable PDF             | Implemented encoder, unverified | `src/infrastructure/pdf/asciiPdfService.ts`, atomic export workflow | Run cross-viewer, Unicode, alignment, cancellation, and performance validation before release. |
+| S5 persistence and encryption | Partial                         | SQLite schema v2, SecureStore key, recovery jobs, deletion path     | Physical backup, reinstall, lost-key, and forced-termination tests remain required.            |
+| S6 50-page stress             | Not run                         | No reference-device benchmark evidence in repository                | Block release until Android and iOS stress gates pass.                                         |
+| S7 local diagnostics/privacy  | Implemented locally             | Allowlisted Analytics wrapper, SQLite diagnostics provider, and app funnel hooks | Network inspection and consent/deletion device checks remain required.                   |

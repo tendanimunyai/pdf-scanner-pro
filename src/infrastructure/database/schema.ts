@@ -1,5 +1,5 @@
 export const DATABASE_NAME = 'pdf-scanner-pro.db';
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
 
 export interface MigrationDatabase {
   execAsync(sql: string): Promise<void>;
@@ -55,6 +55,16 @@ CREATE INDEX IF NOT EXISTS pages_document_position ON pages(document_id, positio
 PRAGMA user_version = 1;
 `;
 
+const MIGRATE_V2 = `
+CREATE TABLE IF NOT EXISTS diagnostics_events (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  parameters_json TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+PRAGMA user_version = 2;
+`;
+
 export async function migrateDatabase(database: MigrationDatabase): Promise<void> {
   const row = await database.getFirstAsync('PRAGMA user_version');
   const version = row?.user_version ?? 0;
@@ -63,5 +73,8 @@ export async function migrateDatabase(database: MigrationDatabase): Promise<void
   }
   if (version === 0) {
     await database.withTransactionAsync(() => database.execAsync(CREATE_V1));
+  }
+  if (version < 2) {
+    await database.withTransactionAsync(() => database.execAsync(MIGRATE_V2));
   }
 }

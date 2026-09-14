@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 
 import { Analytics, type AnalyticsProvider } from '../src/services/analytics';
+import { LocalDiagnosticsProvider } from '../src/infrastructure/analytics/localDiagnosticsProvider';
 
 describe('privacy-safe analytics', () => {
   it('does not initialize or emit while consent is unresolved or denied', async () => {
@@ -33,5 +34,27 @@ describe('privacy-safe analytics', () => {
         filename: 'secret.pdf',
       } as never),
     ).rejects.toThrow(/not allowed/i);
+  });
+
+  it('clears locally retained diagnostics when consent is withdrawn', async () => {
+    const clear = vi.fn();
+    const analytics = new Analytics({
+      setCollectionEnabled: vi.fn(),
+      logEvent: vi.fn(),
+      clear,
+    });
+    await analytics.setConsent('denied');
+    expect(clear).toHaveBeenCalledOnce();
+  });
+
+  it('purges diagnostics using a bounded retention window', async () => {
+    const runAsync = vi.fn().mockResolvedValue(undefined);
+    const provider = new LocalDiagnosticsProvider({ runAsync } as never);
+    await provider.purgeOlderThan(30);
+    expect(runAsync).toHaveBeenCalledWith(
+      'DELETE FROM diagnostics_events WHERE created_at < ?',
+      expect.any(String),
+    );
+    await expect(provider.purgeOlderThan(0)).rejects.toThrow('invalid_input');
   });
 });

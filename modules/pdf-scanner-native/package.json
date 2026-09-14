@@ -1,0 +1,12 @@
+{
+  "name": "pdf-scanner-native",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Offline imaging and OCR adapters for PDF Scanner Pro",
+  "main": "index.js",
+  "license": "UNLICENSED",
+  "peerDependencies": {
+    "expo": "*",
+    "react-native": "*"
+  }
+}
